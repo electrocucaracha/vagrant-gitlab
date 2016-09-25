@@ -7,9 +7,12 @@
 # you're doing.
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.provision "shell", path: "postinstall.sh"
-  config.vm.network :private_network, ip: '192.168.50.4'
+  config.vm.network :private_network, ip: '192.168.50.3'
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 2 * 1024]
+  end
+  config.vm.provision 'shell' do |s|
+    s.path = 'postinstall.sh'
+    s.args = ['127.0.0.1']
   end
 end
